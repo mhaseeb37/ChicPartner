@@ -3,6 +3,8 @@ import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import Hero from '../components/Hero';
+import Newsletter from '../components/Newsletter';
+import Testimonials from '~/components/Testimonials';
 
 export const meta = () => {
   return [{title: 'Chic Partner | Home'}];
@@ -24,6 +26,8 @@ export default function Homepage() {
       <Hero />
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
+      <Testimonials />
+      <Newsletter />
     </div>
   );
 }
