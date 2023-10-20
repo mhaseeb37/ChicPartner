@@ -29,7 +29,9 @@ export default function Homepage() {
       <Hero />
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
+      
       <CTA />
+
       <ProductList />
       <Logos />
       <Testimonials />
