@@ -5,7 +5,7 @@ import {Image, Money} from '@shopify/hydrogen';
 import Hero from '../components/Hero';
 
 export const meta = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{title: 'Chic Partner | Home'}];
 };
 
 export async function loader({context}) {
