@@ -5,6 +5,8 @@ import {Image, Money} from '@shopify/hydrogen';
 import Hero from '../components/Hero';
 import Newsletter from '../components/Newsletter';
 import Testimonials from '~/components/Testimonials';
+import Logos from '~/components/Logos';
+import CTA from '~/components/Cta';
 
 export const meta = () => {
   return [{title: 'Chic Partner | Home'}];
@@ -26,6 +28,8 @@ export default function Homepage() {
       <Hero />
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
+      <CTA />
+      <Logos />
       <Testimonials />
       <Newsletter />
     </div>
