@@ -20,7 +20,7 @@ export async function loader({context}) {
 export default function Homepage() {
   const data = useLoaderData();
   return (
-    <div className="home">
+    <div className="home MainSection">
       <Hero />
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
