@@ -6,5 +6,6 @@ export default {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
   plugins: [formsPlugin, typographyPlugin,
     require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 };

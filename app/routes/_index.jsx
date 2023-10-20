@@ -7,6 +7,7 @@ import Newsletter from '../components/Newsletter';
 import Testimonials from '~/components/Testimonials';
 import Logos from '~/components/Logos';
 import CTA from '~/components/Cta';
+import ProductList from '~/components/Productlist';
 
 export const meta = () => {
   return [{title: 'Chic Partner | Home'}];
@@ -29,6 +30,7 @@ export default function Homepage() {
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
       <CTA />
+      <ProductList />
       <Logos />
       <Testimonials />
       <Newsletter />
