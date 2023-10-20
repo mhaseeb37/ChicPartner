@@ -15,7 +15,8 @@ export default async function handleRequest(
       'https://google.com',
       'https://live.staticflickr.com',
       'https://tailwindui.com',
-      'http://localhost:3000'
+      'http://localhost:3000',
+      'https://chicpartnervercel.vercel.app'
     ],
   });
 
