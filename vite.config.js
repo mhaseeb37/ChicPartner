@@ -7,7 +7,7 @@ import netlifyPlugin from '@netlify/hydrogen-platform/plugin'
 export default defineConfig({
   plugins: [hydrogen(), netlifyPlugin()],
   resolve: {
-    alias: [{find: /^~\/(.*)/, replacement: '/app/routes/_index.jsx'}],
+    alias: [{find: /^~\/(.*)/, replacement: '/app/routes/$'}],
   },
   optimizeDeps: {
     include: ['@headlessui/react', 'clsx', 'react-use', 'typographic-base'],
