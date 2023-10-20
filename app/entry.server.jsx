@@ -9,7 +9,15 @@ export default async function handleRequest(
   responseHeaders,
   remixContext,
 ) {
-  const {nonce, header, NonceProvider} = createContentSecurityPolicy();
+  const {nonce, header, NonceProvider} = createContentSecurityPolicy({
+    defaultSrc:[
+      'https://cdn.shopify.com',
+      'https://google.com',
+      'https://live.staticflickr.com',
+      'https://tailwindui.com',
+      'http://localhost:3000'
+    ],
+  });
 
   const body = await renderToReadableStream(
     <NonceProvider>

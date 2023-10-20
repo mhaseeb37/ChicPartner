@@ -29,9 +29,8 @@ export default function Homepage() {
       <Hero />
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
-      
+      <img src='https://cdn.shopify.com/s/files/1/0829/4141/1633/products/NS_RTW23-35_F_cbfdac81-104c-4e0f-b4f4-f48bcb097dcd.jpg' />
       <CTA />
-
       <ProductList />
       <Logos />
       <Testimonials />
