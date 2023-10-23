@@ -62,11 +62,18 @@ export function HeaderMenu({menu, viewport}) {
             </button>
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
-            {menu.items.map((item) => (
-              <a key={item.title} href={item.url} className="text-sm font-semibold leading-6 text-gray-900">
-                {item.title}
-              </a>
-            ))}
+            {menu.items.map((item) => {
+              const url =
+              item.url.includes('myshopify.com') ||
+              item.url.includes(publicStoreDomain)
+                ? new URL(item.url).pathname
+                : item.url;
+              return(
+                <a key={item.title} href={url} className="text-sm font-semibold leading-6 text-gray-900">
+                  {item.title}
+                </a>
+              )
+            })}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
