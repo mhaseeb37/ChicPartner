@@ -34,7 +34,6 @@ export function HeaderMenu({menu, viewport}) {
     { name: 'Marketplace', href: '#' },
     { name: 'Company', href: '#' },
   ]
-  console.log("Shop Menu",menu);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
