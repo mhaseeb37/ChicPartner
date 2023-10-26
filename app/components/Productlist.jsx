@@ -1,17 +1,6 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
+import {defer} from '@shopify/remix-oxygen';
+import {Await, useLoaderData, Link} from '@remix-run/react';
+
 const products = [
     {
       id: 1,
@@ -48,29 +37,37 @@ const products = [
     // More products...
   ]
   
-  export default function ProductList() {
+  export default function ProductList({tenproducts}) {
+    console.log("First 10 products:",tenproducts.products.nodes);
+    const productsDataArray= tenproducts.products.nodes;
+    // console.log("First 10 products:",productsData);
     return (
       <div className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <h2 className="sr-only">Products</h2>
   
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {products.map((product) => (
-              <a key={product.id} href={product.href} className="group">
+            {productsDataArray.map((product) => (
+              <Link
+              key={product.id}
+              className="recommended-product"
+              to={`/products/${product.handle}`}
+            >
                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                   <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
+                    src={product.images.nodes[0].url}
+                    alt={product.images.nodes[0].altText}
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
                   />
                 </div>
-                <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-                <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
-              </a>
+                <h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>
+                <p className="mt-1 text-lg font-medium text-gray-900">{product.priceRange.minVariantPrice.amount}<span>{product.priceRange.minVariantPrice.currencyCode}</span></p>
+              </Link>
             ))}
           </div>
         </div>
       </div>
     )
   }
+
   

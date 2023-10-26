@@ -18,8 +18,9 @@ export async function loader({context}) {
   const {collections} = await storefront.query(FEATURED_COLLECTION_QUERY);
   const featuredCollection = collections.nodes[0];
   const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY);
+  const get10products = await storefront.query(GET_10_PRODUCTS);
 
-  return defer({featuredCollection, recommendedProducts});
+  return defer({featuredCollection, recommendedProducts, get10products});
 }
 
 export default function Homepage() {
@@ -30,7 +31,7 @@ export default function Homepage() {
       <FeaturedCollection collection={data.featuredCollection} />
       <RecommendedProducts products={data.recommendedProducts} />
       <CTA />
-      <ProductList />
+      <ProductList tenproducts={data.get10products}/>
       <Logos />
       <Testimonials />
       <Newsletter />
@@ -40,6 +41,7 @@ export default function Homepage() {
 
 function FeaturedCollection({collection}) {
   if (!collection) return null;
+  console.log("Collection Data:",collection);
   const image = collection?.image;
   return (
     <Link
@@ -139,6 +141,57 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
     products(first: 4, sortKey: UPDATED_AT, reverse: true) {
       nodes {
         ...RecommendedProduct
+      }
+    }
+  }
+`;
+const simpleVariable = {
+  data: `query {
+    products(first: 10, reverse: true) {
+      edges {
+        node {
+          id
+          title
+          handle
+          resourcePublicationOnCurrentPublication {
+            publication {
+              name
+              id
+            }
+            publishDate
+            isPublished
+          }
+        }
+      }
+    }
+  }`,
+}
+const GET_10_PRODUCTS = `#graphql
+  fragment Get10Product on Product {
+      id
+      title
+      handle
+      priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    images(first: 1) {
+      nodes {
+        id
+        url
+        altText
+        width
+        height
+      }
+    }
+  }
+  query Get10Prodcut($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    products(first: 10, sortKey: UPDATED_AT, reverse: true) {
+      nodes {
+        ...Get10Product
       }
     }
   }
