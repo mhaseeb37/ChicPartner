@@ -3,7 +3,7 @@
   --cart-aside-summary-height-with-discount: 300px;
   --cart-aside-summary-height: 250px;
   --grid-item-width: 355px;
-  --header-height: 64px;
+  --header-height: 100px;
   --color-dark: #000;
   --color-light: #fff;
 }
@@ -136,6 +136,8 @@ aside li {
   position: sticky;
   top: 0;
   z-index: 1;
+  background: linear-gradient(to right, #ffcc00, #ffffcc, #ffcc00);
+  align-items: center;
 }
 
 .header-menu-mobile-toggle {
@@ -170,6 +172,14 @@ aside li {
   grid-gap: 1rem;
   margin-left: auto;
 }
+ul.right-menu-ul {
+  display: flex;
+}
+
+li.right-menu-li {
+  margin: 0px 10px;
+}
+
 
 /*
 * --------------------------------------------------

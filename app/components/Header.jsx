@@ -1,23 +1,25 @@
-import {Await, NavLink, useMatches} from '@remix-run/react';
-import {Suspense} from 'react';
+import { Await, NavLink, useMatches } from '@remix-run/react';
+import { Suspense } from 'react';
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 
-export function Header({header, isLoggedIn, cart}) {
-  const {shop, menu} = header;
+export function Header({ header, isLoggedIn, cart }) {
+  // console.log("Header data is =>",JSON.stringify(header,null,2))
+  // console.log("Header shop is =>",JSON.stringify(header.shop.primaryDomain.url,null,2))
+  console.log("Domain url is =>", header.shop.primaryDomain.url)
+
+  const { shop, menu } = header;
   return (
     <header className="header">
-      {/* <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink> */}
-      <HeaderMenu menu={menu} viewport="desktop" />
+      <HeaderMenu menu={menu} isLoggedIn={isLoggedIn} name={shop.name} logo={shop.brand.logo.image.url} viewport="desktop" />
       {/* <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} /> */}
     </header>
   );
 }
 
-export function HeaderMenu({menu, viewport}) {
+export function HeaderMenu({ menu, isLoggedIn, name,logo, viewport }) {
+  console.log("logo is here =>",logo)
   const [root] = useMatches();
   const publicStoreDomain = root?.data?.publicStoreDomain;
   const className = `header-menu-${viewport}`;
@@ -40,8 +42,21 @@ export function HeaderMenu({menu, viewport}) {
     <nav role="navigation">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-          <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
+          <NavLink prefetch="intent" to="/account/login" end>
+            <strong>Become a retailer</strong>
+          </NavLink>
+          <div className="flex">
+            <a href="/" className="-m-1.5 p-1.5">
+              <span className="sr-only">Your Company</span>
+              <img
+                className="h-8 w-auto"
+                src={logo}
+                alt=""
+              />
+            </a>
+          </div>
+          {/* <div>
+           <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
                 className="h-8 w-auto"
@@ -49,8 +64,33 @@ export function HeaderMenu({menu, viewport}) {
                 alt=""
               />
             </a>
+          </div> */}
+          <div className='right-menu'>
+            <ul className='right-menu-ul'>
+              <li className='right-menu-li'>
+                <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+                    <path stroke-linecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                  </svg>
+                </NavLink>
+              </li>
+              <li className='right-menu-li'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+                <path stroke-linecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+              </li>
+              <li className='right-menu-li'>
+                <button
+                  type="button"
+                  className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                  onClick={() => setMobileMenuOpen(true)}
+                >
+                  <span className="sr-only">Open main menu</span>
+                  <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </li>
+            </ul>
           </div>
-          <div className="flex lg:hidden">
+          {/* <div className="flex">
             <button
               type="button"
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
@@ -59,8 +99,8 @@ export function HeaderMenu({menu, viewport}) {
               <span className="sr-only">Open main menu</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
-          </div>
-          <div className="hidden lg:flex lg:gap-x-12">
+          </div> */}
+          {/* <div className="hidden lg:flex lg:gap-x-12">
             {menu.items.map((item) => {
               const url =
               item.url.includes('myshopify.com') ||
@@ -73,14 +113,21 @@ export function HeaderMenu({menu, viewport}) {
                 </a>
               )
             })}
-          </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          </div> */}
+          {/* <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
               Log in <span aria-hidden="true">&rarr;</span>
             </a>
-          </div>
+            <div className='right-menu'>
+              <ul className='right-menu-ul'>
+                <li className='right-menu-li'></li>
+                <li className='right-menu-li'></li>
+                <li className='right-menu-li'></li>
+              </ul>
+            </div>
+          </div> */}
         </nav>
-        <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+        <Dialog as="div" className="" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <div className="fixed inset-0 z-50" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
@@ -165,15 +212,15 @@ export function HeaderMenu({menu, viewport}) {
   );
 }
 
-function HeaderCtas({isLoggedIn, cart}) {
+function HeaderCtas({ isLoggedIn, cart }) {
   return (
     <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
+      {/* <HeaderMenuMobileToggle /> */}
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         {isLoggedIn ? 'Account' : 'Sign in'}
       </NavLink>
       <SearchToggle />
-      <CartToggle cart={cart} />
+      {/* <CartToggle cart={cart} /> */}
     </nav>
   );
 }
@@ -187,14 +234,14 @@ function HeaderMenuMobileToggle() {
 }
 
 function SearchToggle() {
-  return <a href="#search-aside">Search</a>;
+  return <a href="">Search</a>;
 }
 
-function CartBadge({count}) {
+function CartBadge({ count }) {
   return <a href="#cart-aside">Cart {count}</a>;
 }
 
-function CartToggle({cart}) {
+function CartToggle({ cart }) {
   return (
     <Suspense fallback={<CartBadge count={0} />}>
       <Await resolve={cart}>
@@ -249,7 +296,7 @@ const FALLBACK_HEADER_MENU = {
   ],
 };
 
-function activeLinkStyle({isActive, isPending}) {
+function activeLinkStyle({ isActive, isPending }) {
   return {
     fontWeight: isActive ? 'bold' : undefined,
     color: isPending ? 'grey' : 'black',
